@@ -1,12 +1,12 @@
 package health.axon.persiancalendertools.date
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.NumberPicker
 import androidx.constraintlayout.widget.ConstraintLayout
 import health.axon.persiancalendertools.R
+import health.axon.persiancalendertools.utils.MONTH_NAMES
 
 
 class PersianDatePicker @JvmOverloads constructor(
@@ -27,9 +27,11 @@ class PersianDatePicker @JvmOverloads constructor(
     override fun initializeAttributes(context: Context, attrs: AttributeSet?) {
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.PersianDatePicker
+                it, R.styleable.PersianDatePicker
             )
+
             setYearRang(attributes)
+            setMonthPickerValues(attributes)
             attributes.recycle()
         }
     }
@@ -38,6 +40,18 @@ class PersianDatePicker @JvmOverloads constructor(
         val currentYear = 1400
         setMinYear(attrs.getInt(R.styleable.PersianDatePicker_minYear, currentYear - 100))
         setMaxYear(attrs.getInt(R.styleable.PersianDatePicker_maxYear, currentYear + 100))
+    }
+
+    override fun setMonthPickerValues(attributes: TypedArray) {
+        val shouldDisplayMonthName = attributes.getBoolean(
+            R.styleable.PersianDatePicker_displayMonthName, true
+        )
+        monthPicker.apply {
+            minValue = 1
+            maxValue = 12
+            if (shouldDisplayMonthName)
+                displayedValues = MONTH_NAMES
+        }
     }
 
     override fun setMinYear(minYear: Int) {
