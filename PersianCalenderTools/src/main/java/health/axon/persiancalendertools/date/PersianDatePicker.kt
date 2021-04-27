@@ -19,10 +19,13 @@ class PersianDatePicker @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr), DatePickerController {
 
     private val selectedDate = PersianCalendar()
+    private val selectedGregorianDate = Calendar.getInstance()
     private val datePicker = inflate(context, R.layout.layout_persian_date_picker, this)
     private val dayPicker = datePicker.findViewById<NumberPicker>(R.id.dayPicker)
     private val monthPicker = datePicker.findViewById<NumberPicker>(R.id.monthPicker)
     private val yearPicker = datePicker.findViewById<NumberPicker>(R.id.yearPicker)
+
+    private var onSelectedDateChangedListener: OnSelectedDateChangedListener? = null
 
     init {
         initializeAttributes(context, attrs)
@@ -43,11 +46,6 @@ class PersianDatePicker @JvmOverloads constructor(
         }
     }
 
-    private fun setYearRang(attrs: TypedArray) {
-        val currentYear = selectedDate.year
-        setMinYear(attrs.getInt(R.styleable.PersianDatePicker_minYear, currentYear - 100))
-        setMaxYear(attrs.getInt(R.styleable.PersianDatePicker_maxYear, currentYear + 100))
-    }
 
     override fun setMonthPickerValues(attributes: TypedArray) {
         val shouldDisplayMonthName = attributes.getBoolean(
@@ -74,6 +72,27 @@ class PersianDatePicker @JvmOverloads constructor(
         setDefaultDate(persianCalendar.year, persianCalendar.month, persianCalendar.day)
     }
 
+    override fun getSelectedDate() = selectedDate
+
+    override fun getSelectedDateAsGregorian(): Date = selectedGregorianDate.time
+
+
+    override fun getSelectedYear(): Int = selectedDate.year
+
+
+    override fun getSelectedMonth() = selectedDate.month
+
+    override fun getSelectedMonthName() = MONTH_NAMES[selectedDate.month - 1]
+
+    override fun getSelectedDay() = selectedDate.day
+    override fun getSelectedGregorianYear() = selectedGregorianDate.get(Calendar.YEAR)
+    override fun getSelectedGregorianMonth() = selectedGregorianDate.get(Calendar.MONTH)
+    override fun getSelectedGregorianMonthName(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSelectedGregorianDay() = selectedGregorianDate.get(Calendar.DAY_OF_MONTH)
+
     override fun setDefaultDate(year: Int, month: Int, day: Int) {
         yearPicker.value = selectedDate.year
         monthPicker.value = selectedDate.month
@@ -82,14 +101,39 @@ class PersianDatePicker @JvmOverloads constructor(
 
 
     private fun setValueChangeListener() {
-        yearPicker.setOnValueChangedListener(this::onYearValueChanged)
-        monthPicker.setOnValueChangedListener(this::onMonthValueChanged)
-        dayPicker.setOnValueChangedListener(this::onYearValueChanged)
+        yearPicker.setOnValueChangedListener { _, _, newVal ->
+            selectedDate.year = newVal
+            setDaysRange()
+            selectedDateChanged()
+        }
+        monthPicker.setOnValueChangedListener { _, _, newVal ->
+            selectedDate.month = newVal
+            setDaysRange()
+            selectedDateChanged()
+        }
+        dayPicker.setOnValueChangedListener { _, _, newVal ->
+            selectedDate.day = newVal
+            selectedDateChanged()
+        }
     }
 
-    private fun onYearValueChanged(picker: NumberPicker, oldVal: Int, newVal: Int) {
-        selectedDate.year = newVal
-        setDaysRange()
+    private fun selectedDateChanged() {
+        setGregorianDate()
+        onSelectedDateChangedListener?.onDateSelected(this)
+    }
+
+
+    private fun setGregorianDate() {
+        val gregorianCalendar = GregorianCalendar(selectedDate)
+
+        selectedGregorianDate.set(
+            gregorianCalendar.year,
+            gregorianCalendar.month,
+            gregorianCalendar.day,
+            0,
+            0,
+            0
+        )
     }
 
     private fun setDaysRange() {
@@ -97,14 +141,11 @@ class PersianDatePicker @JvmOverloads constructor(
         dayPicker.maxValue = selectedDate.numberOfDaysInMonth
     }
 
-    private fun onMonthValueChanged(picker: NumberPicker, oldVal: Int, newVal: Int) {
-        selectedDate.month = newVal
-        setDaysRange()
+    private fun setYearRang(attrs: TypedArray) {
+        val currentYear = selectedDate.year
+        setMinYear(attrs.getInt(R.styleable.PersianDatePicker_minYear, currentYear - 100))
+        setMaxYear(attrs.getInt(R.styleable.PersianDatePicker_maxYear, currentYear + 100))
     }
 
-    private fun isLeapYear() = selectedDate.isLeapYear
 
-    private fun onDayValueChanged(picker: NumberPicker, oldVal: Int, newVal: Int) {
-        selectedDate.day = newVal
-    }
 }
