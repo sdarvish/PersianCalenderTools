@@ -4,5 +4,6 @@
         <attr name="minYear" format="integer" />
         <attr name="maxYear" format="integer" />
         <attr name="displayMonthName" format="boolean" />
+        <attr name="pickersStyle" format="reference"/>
     </declare-styleable>
 </resources>
