@@ -1,1 +1,1 @@
-include ':app',':PersianCalenderTools'
+include ':app',':persiancalendertools'
