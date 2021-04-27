@@ -6,29 +6,32 @@
 
     <NumberPicker
         android:id="@+id/dayPicker"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toRightOf="@id/monthPicker"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
         android:id="@+id/monthPicker"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="36dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toRightOf="@id/yearPicker"
         app:layout_constraintRight_toLeftOf="@id/dayPicker"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
         android:id="@+id/yearPicker"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/monthPicker"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
