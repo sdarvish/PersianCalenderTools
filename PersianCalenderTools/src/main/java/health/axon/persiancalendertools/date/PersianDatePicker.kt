@@ -26,6 +26,8 @@ class PersianDatePicker @JvmOverloads constructor(
     init {
         initializeAttributes(context, attrs)
         setValueChangeListener()
+        setDaysRange()
+        setDefaultDate(selectedDate.year, selectedDate.month, selectedDate.day)
     }
 
     override fun initializeAttributes(context: Context, attrs: AttributeSet?) {
@@ -67,11 +69,12 @@ class PersianDatePicker @JvmOverloads constructor(
     }
 
     override fun setDefaultDate(date: Date) {
-        TODO("Not yet implemented")
     }
 
     override fun setDefaultDate(year: Int, month: Int, day: Int) {
-        TODO("Not yet implemented")
+        yearPicker.value = selectedDate.year
+        monthPicker.value = selectedDate.month
+        dayPicker.value = selectedDate.day
     }
 
     override fun setTodayAsDefaultDate() {
@@ -81,31 +84,23 @@ class PersianDatePicker @JvmOverloads constructor(
 
     private fun setValueChangeListener() {
         yearPicker.setOnValueChangedListener(this::onYearValueChanged)
-        monthPicker.setOnValueChangedListener(this::onYearValueChanged)
+        monthPicker.setOnValueChangedListener(this::onMonthValueChanged)
         dayPicker.setOnValueChangedListener(this::onYearValueChanged)
     }
 
     private fun onYearValueChanged(picker: NumberPicker, oldVal: Int, newVal: Int) {
-
         selectedDate.year = newVal
-        updateDayValues()
+        setDaysRange()
     }
 
-    private fun updateDayValues(newSelectedMonth: Int? = null) {
+    private fun setDaysRange() {
         dayPicker.minValue = 1
-        val selectedMonth = newSelectedMonth ?: monthPicker.value
-        when {
-            selectedMonth in 1..6 -> dayPicker.maxValue = 31
-            selectedMonth in 1..11 -> dayPicker.maxValue = 30
-            selectedMonth == 12 && isLeapYear() -> dayPicker.maxValue = 30
-            selectedMonth == 12 && !isLeapYear() -> dayPicker.maxValue = 29
-
-        }
+        dayPicker.maxValue = selectedDate.numberOfDaysInMonth
     }
 
     private fun onMonthValueChanged(picker: NumberPicker, oldVal: Int, newVal: Int) {
         selectedDate.month = newVal
-        updateDayValues(newVal)
+        setDaysRange()
     }
 
     private fun isLeapYear() = selectedDate.isLeapYear
