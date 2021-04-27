@@ -10,7 +10,6 @@ interface DatePickerController {
     fun setMinYear(minYear: Int)
     fun setMaxYear(maxYear: Int)
     fun setMonthPickerValues(attributes: TypedArray)
-    fun setDefaultDate(date: Date)
+    fun setDefaultDate(date: Calendar)
     fun setDefaultDate(year: Int, month: Int, day: Int)
-    fun setTodayAsDefaultDate()
 }

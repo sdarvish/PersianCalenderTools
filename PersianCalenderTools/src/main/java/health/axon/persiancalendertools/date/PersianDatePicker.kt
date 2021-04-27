@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.NumberPicker
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.hypotemoose.cal.date.GregorianCalendar
 import com.hypotemoose.cal.date.PersianCalendar
 import health.axon.persiancalendertools.R
 import health.axon.persiancalendertools.utils.MONTH_NAMES
@@ -68,17 +69,15 @@ class PersianDatePicker @JvmOverloads constructor(
         yearPicker.maxValue = maxYear
     }
 
-    override fun setDefaultDate(date: Date) {
+    override fun setDefaultDate(date: Calendar) {
+        val persianCalendar = PersianCalendar(GregorianCalendar(date))
+        setDefaultDate(persianCalendar.year, persianCalendar.month, persianCalendar.day)
     }
 
     override fun setDefaultDate(year: Int, month: Int, day: Int) {
         yearPicker.value = selectedDate.year
         monthPicker.value = selectedDate.month
         dayPicker.value = selectedDate.day
-    }
-
-    override fun setTodayAsDefaultDate() {
-        TODO("Not yet implemented")
     }
 
 
