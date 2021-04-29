@@ -5,7 +5,6 @@ import com.hypotemoose.cal.util.AlmanacConverter
 import health.axon.persiancalendertools.utils.MONTH_NAMES
 import health.axon.persiancalendertools.utils.WEEK_DAY_NAMES
 import java.util.*
-
 class PersianCalendar : com.hypotemoose.cal.date.PersianCalendar {
 
     constructor() : super()
@@ -30,7 +29,8 @@ class PersianCalendar : com.hypotemoose.cal.date.PersianCalendar {
     }
 
     fun toGregorianCalendar(): Calendar {
-        return GregorianCalendar(year, month - 1, day)
+        val cal = com.hypotemoose.cal.date.GregorianCalendar(this)
+        return GregorianCalendar(cal.year, cal.month - 1, cal.day)
     }
 
     fun toDate(): Date {
