@@ -4,6 +4,10 @@
         <attr name="minYear" format="integer" />
         <attr name="maxYear" format="integer" />
         <attr name="displayMonthName" format="boolean" />
-        <attr name="pickersStyle" format="reference"/>
+        <attr name="persianDatePickersStyle" format="reference" />
+        <attr name="persianDatePickersDialog" format="reference" />
+        <attr name="persianDatePickerFont" format="reference" />
+        <attr name="persianDatePickerDialogTitleTextAppearance" format="reference" />
+        <attr name="persianDatePickerDialogButtonStyle" format="reference" />
     </declare-styleable>
 </resources>
