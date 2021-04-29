@@ -30,19 +30,7 @@ class PersianCalendar : com.hypotemoose.cal.date.PersianCalendar {
     }
 
     fun toGregorianCalendar(): Calendar {
-        val calendar = Calendar.getInstance()
-        val gregorianCalendar = com.hypotemoose.cal.date.GregorianCalendar(this)
-
-        calendar.set(
-            gregorianCalendar.year,
-            gregorianCalendar.month,
-            gregorianCalendar.day,
-            0,
-            0,
-            0
-        )
-
-        return calendar
+        return GregorianCalendar(year, month - 1, day)
     }
 
     fun toDate(): Date {
