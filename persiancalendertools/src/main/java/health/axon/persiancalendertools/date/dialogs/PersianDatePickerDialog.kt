@@ -11,7 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import health.axon.persiancalendertools.R
 import health.axon.persiancalendertools.date.OnDateSelectedListener
-import health.axon.persiancalendertools.date.OnSelectedDateChangedListener
 import health.axon.persiancalendertools.date.PersianDatePicker
 import java.util.*
 
@@ -26,7 +25,6 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
     private var defaultMonth: Int? = null
     private var defaultDay: Int? = null
     private lateinit var root: View
-    private var onSelectedDateChangedListener: OnSelectedDateChangedListener? = null
     private var onDateSelectListener: OnDateSelectedListener? = null
     override fun setupDialog(dialog: Dialog, style: Int) {
         root = View.inflate(context, R.layout.dialog_persian_date_picker_bottom_sheet, null)
@@ -67,10 +65,6 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
         this.buttonText = text
     }
 
-    fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener) = apply {
-        this.onSelectedDateChangedListener = listener
-    }
-
     fun setOnDateSelectedListener(listener: OnDateSelectedListener) = apply {
         this.onDateSelectListener = listener
     }
@@ -92,7 +86,6 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
 
         minYear?.let { datePickers.setMinYear(it) }
         maxYear?.let { datePickers.setMinYear(it) }
-        onSelectedDateChangedListener?.let { datePickers.setOnSelectedDateChangedListener(it) }
         if (defaultYear != null && defaultMonth != null && defaultDay != null)
             datePickers.setDefaultDate(defaultYear!!, defaultMonth!!, defaultDay!!)
 
