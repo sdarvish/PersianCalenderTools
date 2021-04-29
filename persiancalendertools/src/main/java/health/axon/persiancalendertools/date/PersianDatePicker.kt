@@ -83,6 +83,9 @@ class PersianDatePicker @JvmOverloads constructor(
     override fun getSelectedMonth() = selectedDate.month
 
     override fun getSelectedMonthName() = MONTH_NAMES[selectedDate.month - 1]
+    override fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener) {
+        this.onSelectedDateChangedListener = listener
+    }
 
     override fun getSelectedDay() = selectedDate.day
     override fun getSelectedGregorianYear() = selectedGregorianDate.get(Calendar.YEAR)

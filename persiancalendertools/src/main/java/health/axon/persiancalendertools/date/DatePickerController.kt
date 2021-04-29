@@ -21,4 +21,5 @@ interface DatePickerController {
     fun getSelectedGregorianMonth(): Int
     fun getSelectedGregorianMonthName(): String
     fun getSelectedGregorianDay(): Int
+    fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener)
 }

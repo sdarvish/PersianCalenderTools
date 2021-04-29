@@ -4,25 +4,30 @@ import android.app.Dialog
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import health.axon.persiancalendertools.R
+import health.axon.persiancalendertools.date.OnDateSelectedListener
+import health.axon.persiancalendertools.date.OnSelectedDateChangedListener
 import health.axon.persiancalendertools.date.PersianDatePicker
 import java.util.*
 
-internal class PersianDatePickerDialog : BottomSheetDialogFragment() {
+class PersianDatePickerDialog() : BottomSheetDialogFragment() {
 
-    var title: String? = null
-    var buttonText: String? = null
+    private lateinit var datePickers: PersianDatePicker
+    private var title: String? = null
+    private var buttonText: String? = null
     private var maxYear: Int? = null
     private var minYear: Int? = null
     private var defaultYear: Int? = null
     private var defaultMonth: Int? = null
     private var defaultDay: Int? = null
     private lateinit var root: View
-
+    private var onSelectedDateChangedListener: OnSelectedDateChangedListener? = null
+    private var onDateSelectListener: OnDateSelectedListener? = null
     override fun setupDialog(dialog: Dialog, style: Int) {
         root = View.inflate(context, R.layout.dialog_persian_date_picker_bottom_sheet, null)
         initializeViews()
@@ -54,17 +59,40 @@ internal class PersianDatePickerDialog : BottomSheetDialogFragment() {
         this.defaultDay = day
     }
 
+    fun setTitleText(title: String?) = apply {
+        this.title = title
+    }
+
+    fun setButtonText(text: String) = apply {
+        this.buttonText = text
+    }
+
+    fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener) {
+        this.onSelectedDateChangedListener = listener
+    }
+
+    fun setOnDateSelectedListener(listener: OnDateSelectedListener) {
+        this.onDateSelectListener = listener
+    }
+
     private fun initializeViews() {
         configTitle()
         configButton()
+        configCloseButton()
         initializeDatePicker()
     }
 
+    private fun configCloseButton() {
+        val button = root.findViewById<ImageView>(R.id.closeDatePicker)
+        button.setOnClickListener { dismiss() }
+    }
+
     private fun initializeDatePicker() {
-        val datePickers: PersianDatePicker = root.findViewById(R.id.datePicker)
+        datePickers = root.findViewById(R.id.datePicker)
 
         minYear?.let { datePickers.setMinYear(it) }
         maxYear?.let { datePickers.setMinYear(it) }
+        onSelectedDateChangedListener?.let { datePickers.setOnSelectedDateChangedListener(it) }
         if (defaultYear != null && defaultMonth != null && defaultDay != null)
             datePickers.setDefaultDate(defaultYear!!, defaultMonth!!, defaultDay!!)
 
@@ -74,6 +102,11 @@ internal class PersianDatePickerDialog : BottomSheetDialogFragment() {
         val button = root.findViewById<MaterialButton>(R.id.selectDateButton)
         buttonText?.let {
             button.text = it
+        }
+
+        button.setOnClickListener {
+            onDateSelectListener?.onDateSet(datePickers.getSelectedDate())
+            dismiss()
         }
     }
 

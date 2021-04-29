@@ -7,13 +7,13 @@
     android:background="@android:color/transparent">
 
     <com.google.android.material.card.MaterialCardView
-        style="?attr/persianDatePickersDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentPaddingBottom="24dp"
         app:contentPaddingLeft="32dp"
         app:contentPaddingRight="32dp"
         app:contentPaddingTop="24dp"
+        app:shapeAppearanceOverlay="?attr/shapeAppearanceLargeComponent"
         tools:padding="32dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
