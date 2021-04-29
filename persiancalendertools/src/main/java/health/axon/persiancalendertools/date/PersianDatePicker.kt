@@ -34,7 +34,7 @@ class PersianDatePicker @JvmOverloads constructor(
         setDefaultDate(selectedDate.year, selectedDate.month, selectedDate.day)
     }
 
-    override fun initializeAttributes(context: Context, attrs: AttributeSet?) {
+    fun initializeAttributes(context: Context, attrs: AttributeSet?) {
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
                 it, R.styleable.PersianDatePicker
