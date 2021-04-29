@@ -67,11 +67,11 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
         this.buttonText = text
     }
 
-    fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener) {
+    fun setOnSelectedDateChangedListener(listener: OnSelectedDateChangedListener) = apply {
         this.onSelectedDateChangedListener = listener
     }
 
-    fun setOnDateSelectedListener(listener: OnDateSelectedListener) {
+    fun setOnDateSelectedListener(listener: OnDateSelectedListener) = apply {
         this.onDateSelectListener = listener
     }
 
