@@ -36,4 +36,8 @@ class PersianCalendar : com.hypotemoose.cal.date.PersianCalendar {
     fun toDate(): Date {
         return toGregorianCalendar().time
     }
+
+    override fun toString(): String {
+        return "$year/ $month/ $day"
+    }
 }
