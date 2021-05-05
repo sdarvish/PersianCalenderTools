@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.hypotemoose.cal.date.GregorianCalendar
 import health.axon.persiancalendertools.date.OnDateSelectedListener
 import health.axon.persiancalendertools.date.dialogs.PersianDatePickerDialog
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
                     Log.d("OnDateSelected", ": ${persianCalendar.toDate()}")
                     Log.d("OnDateSelected", ": ${gregorianCalendar.date}")
                 }
-            }).show(supportFragmentManager, "")
+            }).setTypeFace(ResourcesCompat.getFont(this, R.font.iran_yekan_bold)!!)
+                .show(supportFragmentManager, "")
         }
     }
 }

@@ -1,6 +1,7 @@
 package health.axon.persiancalendertools.date.dialogs
 
 import android.app.Dialog
+import android.graphics.Typeface
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -16,7 +17,6 @@ import java.util.*
 
 class PersianDatePickerDialog() : BottomSheetDialogFragment() {
 
-    private lateinit var datePickers: PersianDatePicker
     private var title: String? = null
     private var buttonText: String? = null
     private var maxYear: Int? = null
@@ -24,8 +24,10 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
     private var defaultYear: Int? = null
     private var defaultMonth: Int? = null
     private var defaultDay: Int? = null
-    private lateinit var root: View
     private var onDateSelectListener: OnDateSelectedListener? = null
+    private lateinit var datePickers: PersianDatePicker
+    private lateinit var root: View
+
     override fun setupDialog(dialog: Dialog, style: Int) {
         root = View.inflate(context, R.layout.dialog_persian_date_picker_bottom_sheet, null)
         initializeViews()
@@ -67,6 +69,10 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
 
     fun setOnDateSelectedListener(listener: OnDateSelectedListener) = apply {
         this.onDateSelectListener = listener
+    }
+
+    fun setTypeFace(typeface: Typeface) = apply {
+        PersianDatePickerDialog.typeFace = typeface
     }
 
     private fun initializeViews() {
@@ -123,5 +129,8 @@ class PersianDatePickerDialog() : BottomSheetDialogFragment() {
         )
     }
 
+    companion object {
+        var typeFace: Typeface? = null
+    }
 
 }

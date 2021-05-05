@@ -3,7 +3,6 @@ package health.axon.persiancalendertools.date
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.widget.NumberPicker
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.hypotemoose.cal.date.GregorianCalendar
 import health.axon.persiancalendertools.R
@@ -20,10 +19,9 @@ class PersianDatePicker @JvmOverloads constructor(
     private val selectedDate = PersianCalendar()
     private val selectedGregorianDate = Calendar.getInstance()
     private val datePicker = inflate(context, R.layout.layout_persian_date_picker, this)
-    private val dayPicker = datePicker.findViewById<NumberPicker>(R.id.dayPicker)
-    private val monthPicker = datePicker.findViewById<NumberPicker>(R.id.monthPicker)
-    private val yearPicker = datePicker.findViewById<NumberPicker>(R.id.yearPicker)
-
+    private val dayPicker = datePicker.findViewById<PersianNumberPicker>(R.id.dayPicker)
+    private val monthPicker = datePicker.findViewById<PersianNumberPicker>(R.id.monthPicker)
+    private val yearPicker = datePicker.findViewById<PersianNumberPicker>(R.id.yearPicker)
     private var onSelectedDateChangedListener: OnSelectedDateChangedListener? = null
 
     init {
@@ -33,7 +31,7 @@ class PersianDatePicker @JvmOverloads constructor(
         setDefaultDate(selectedDate.year, selectedDate.month, selectedDate.day)
     }
 
-    fun initializeAttributes(context: Context, attrs: AttributeSet?) {
+    private fun initializeAttributes(context: Context, attrs: AttributeSet?) {
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
                 it, R.styleable.PersianDatePicker
@@ -148,6 +146,5 @@ class PersianDatePicker @JvmOverloads constructor(
         setMinYear(attrs.getInt(R.styleable.PersianDatePicker_minYear, currentYear - 100))
         setMaxYear(attrs.getInt(R.styleable.PersianDatePicker_maxYear, currentYear + 100))
     }
-
 
 }
