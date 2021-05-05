@@ -5,15 +5,4 @@
         <item name="android:textSize">28sp</item>
     </style>
 
-    <style name="BottomSheetDialogStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="bottomSheetStyle">@style/BottomSheet.Radius.Up</item>
-    </style>
-
-    <style name="BottomSheet.Radius.Up" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/shape_rounded_dialog</item>
-    </style>
-
 </resources>

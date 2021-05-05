@@ -9,7 +9,8 @@ import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import health.axon.persiancalendertools.R
@@ -30,17 +31,23 @@ class PersianDatePickerDialog : BottomSheetDialogFragment() {
     private lateinit var datePickers: PersianDatePicker
     private lateinit var root: View
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogStyle)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.setOnShowListener {
+            val d = it as BottomSheetDialog
+            val sheet = d.findViewById<View>(R.id.design_bottom_sheet) as View
+            val behavior = BottomSheetBehavior.from(sheet)
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+        return dialog
     }
+
 
     override fun setupDialog(dialog: Dialog, style: Int) {
         root = View.inflate(context, R.layout.dialog_persian_date_picker_bottom_sheet, null)
         initializeViews()
         setRootBackground(dialog)
     }
-
 
     fun setMinYear(minYear: Int) = apply {
         this.minYear = minYear
