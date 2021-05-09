@@ -16,7 +16,7 @@ class PersianDatePicker @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), DatePickerController {
 
-    private val selectedDate = PersianCalendar()
+    private var selectedDate = PersianCalendar()
     private val selectedGregorianDate = Calendar.getInstance()
     private val datePicker = inflate(context, R.layout.layout_persian_date_picker, this)
     private val dayPicker = datePicker.findViewById<PersianNumberPicker>(R.id.dayPicker)
@@ -66,6 +66,8 @@ class PersianDatePicker @JvmOverloads constructor(
 
     override fun setDefaultDate(date: Calendar) {
         val persianCalendar = PersianCalendar(GregorianCalendar(date))
+        selectedDate = persianCalendar
+
         setDefaultDate(persianCalendar.year, persianCalendar.month, persianCalendar.day)
     }
 
@@ -94,6 +96,7 @@ class PersianDatePicker @JvmOverloads constructor(
     override fun getSelectedGregorianDay() = selectedGregorianDate.get(Calendar.DAY_OF_MONTH)
 
     override fun setDefaultDate(year: Int, month: Int, day: Int) {
+        selectedDate = PersianCalendar(year, month, day)
         yearPicker.value = selectedDate.year
         monthPicker.value = selectedDate.month
         dayPicker.value = selectedDate.day

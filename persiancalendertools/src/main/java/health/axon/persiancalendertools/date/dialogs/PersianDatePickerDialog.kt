@@ -13,8 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.hypotemoose.cal.date.GregorianCalendar
 import health.axon.persiancalendertools.R
 import health.axon.persiancalendertools.date.OnDateSelectedListener
+import health.axon.persiancalendertools.date.PersianCalendar
 import health.axon.persiancalendertools.date.PersianDatePicker
 import java.util.*
 
@@ -58,12 +60,20 @@ class PersianDatePickerDialog : BottomSheetDialogFragment() {
         this.maxYear = maxYear
     }
 
-
     fun setDefaultDate(date: Calendar) = apply {
+        val persianDate=PersianCalendar(GregorianCalendar(date))
         setDefaultDate(
-            date.get(Calendar.YEAR),
-            date.get(Calendar.MONTH),
-            date.get(Calendar.DAY_OF_MONTH)
+            persianDate.year,
+            persianDate.month,
+            persianDate.day
+        )
+    }
+
+    fun setDefaultDate(date: PersianCalendar) = apply {
+        setDefaultDate(
+            date.year,
+            date.month,
+            date.day
         )
     }
 

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.hypotemoose.cal.date.GregorianCalendar
 import health.axon.persiancalendertools.date.OnDateSelectedListener
+import health.axon.persiancalendertools.date.PersianCalendar
 import health.axon.persiancalendertools.date.dialogs.PersianDatePickerDialog
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<View>(R.id.openDialogFragment).setOnClickListener {
 
-            PersianDatePickerDialog().setOnDateSelectedListener(object : OnDateSelectedListener {
+            val persianCalender=PersianCalendar(1390,5,3)
+
+            PersianDatePickerDialog()
+                .setDefaultDate(persianCalender.toGregorianCalendar())
+                .setOnDateSelectedListener(object : OnDateSelectedListener {
                 override fun onDateSet(persianCalendar: health.axon.persiancalendertools.date.PersianCalendar) {
 
                     val gregorianCalendar = GregorianCalendar(persianCalendar)
