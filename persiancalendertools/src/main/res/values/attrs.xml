@@ -10,4 +10,9 @@
         <attr name="persianDatePickerDialogTitleTextAppearance" format="reference" />
         <attr name="persianDatePickerDialogButtonStyle" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="PersianNumberPicker">
+        <attr name="pnpfont" format="reference"/>
+    </declare-styleable>
+
 </resources>
