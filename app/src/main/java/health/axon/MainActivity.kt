@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<PersianNumberPicker>(R.id.numberPicker).also {
             it.minValue = 0
-            it.maxValue = 3
-            it.displayedValues = arrayOf("سلام","خوبی","خوشی","چه خبر")
+            it.maxValue = 9
+            it.displayedValues = arrayOf("سلام","خوبی","خوشی","چه خبر","خوبی","خوشی","چه خبر","خوبی","خوشی","چه خبر")
         }
     }
 }

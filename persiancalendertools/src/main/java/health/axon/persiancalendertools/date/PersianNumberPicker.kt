@@ -11,18 +11,37 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import health.axon.persiancalendertools.date.dialogs.PersianDatePickerDialog
 import health.axon.persiancalendertools.R
+import health.axon.persiancalendertools.utils.getFontOrNull
+import android.R.color
+import android.nfc.Tag
 
-class PersianNumberPicker(context: Context?, attrs: AttributeSet?, defStyleAttr: Int = 0) :
-    NumberPicker(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
+import android.widget.EditText
+import java.lang.IllegalArgumentException
+
+
+class PersianNumberPicker @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = android.R.attr.numberPickerStyle,
+    defStyleRes: Int = 0
+) : NumberPicker(context, attrs, defStyleAttr, defStyleRes) {
 
     var typeFace: Typeface? = null
 
+    val TAG = PersianNumberPicker::class.java.simpleName
     init {
-        getConfigurationAttributes(attrs, defStyleAttr)
+        Log.e(TAG, "#WTF INIT")
+        getConfigurationAttributes(attrs, 0)
+    }
+
+    override fun addView(child: View?, index: Int) {
+        super.addView(child, index)
+        Log.e(TAG, "#WTF addView Index")
+    }
+
+    override fun addView(child: View?, width: Int, height: Int) {
+        super.addView(child, width, height)
+        Log.e(TAG, "#WTF addView width,height")
     }
 
     private fun getConfigurationAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -43,6 +62,8 @@ class PersianNumberPicker(context: Context?, attrs: AttributeSet?, defStyleAttr:
 
     override fun addView(child: View) {
         super.addView(child)
+        Log.e(TAG, "WTF addView2: is TypeFace==null == ${typeFace == null} ")
+        Log.e(TAG, "WTF addView2: ${child::class.java.simpleName}")
         updateView(child)
     }
 
@@ -51,19 +72,24 @@ class PersianNumberPicker(context: Context?, attrs: AttributeSet?, defStyleAttr:
         params: ViewGroup.LayoutParams
     ) {
         super.addView(child, index, params)
+        Log.e(TAG, "WTF addView2: is TypeFace==null == ${typeFace == null} ")
+        Log.e(TAG, "WTF addView2: ${child::class.java.simpleName}")
         updateView(child)
     }
 
     override fun addView(child: View, params: ViewGroup.LayoutParams) {
         super.addView(child, params)
+        Log.e(TAG, "WTF addView3: is TypeFace==null == ${typeFace == null} ")
+        Log.e(TAG, "WTF addView3: ${child::class.java.simpleName}")
         updateView(child)
     }
 
-
     private fun updateView(view: View) {
         if (view is TextView) {
-            Log.w("PersianNumberPicker", "updateView ${typeFace == null}")
+            Log.e(TAG, "#WTF updateView: is TypeFace==null == ${typeFace == null}")
             typeFace?.let { view.typeface = it }
         }
     }
+
+    
 }
