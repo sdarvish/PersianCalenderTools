@@ -36,13 +36,9 @@ class PersianNumberPicker : NumberPicker {
         updateView(child)
     }
 
-
     private fun updateView(view: View) {
         if (view is TextView) {
-            PersianDatePickerDialog.typeFace?.let {
-                view.typeface = PersianDatePickerDialog.typeFace
-            }
-
+            PersianDatePicker.typeFace?.let { view.typeface = it }
         }
     }
 }

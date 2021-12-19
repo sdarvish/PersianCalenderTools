@@ -1,6 +1,7 @@
 package health.axon.persiancalendertools.date
 
 import android.content.res.TypedArray
+import android.graphics.Typeface
 
 import java.util.*
 
@@ -16,7 +17,7 @@ interface DatePickerController {
     fun getSelectedMonth(): Int
     fun getSelectedMonthName(): String
     fun getSelectedDay(): Int
-
+    fun setTypeFace(typeface: Typeface)
     fun getSelectedGregorianYear(): Int
     fun getSelectedGregorianMonth(): Int
     fun getSelectedGregorianMonthName(): String

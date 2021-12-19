@@ -2,6 +2,7 @@ package health.axon.persiancalendertools.date
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.hypotemoose.cal.date.GregorianCalendar
@@ -58,6 +59,10 @@ class PersianDatePicker @JvmOverloads constructor(
 
     override fun setMinYear(minYear: Int) {
         yearPicker.minValue = minYear
+    }
+
+    override fun setTypeFace(typeface: Typeface) {
+        PersianDatePicker.typeFace = typeface
     }
 
     override fun setMaxYear(maxYear: Int) {
@@ -150,4 +155,7 @@ class PersianDatePicker @JvmOverloads constructor(
         setMaxYear(attrs.getInt(R.styleable.PersianDatePicker_maxYear, currentYear + 100))
     }
 
+    companion object {
+        var typeFace: Typeface? = null
+    }
 }

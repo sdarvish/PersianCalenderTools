@@ -61,7 +61,7 @@ class PersianDatePickerDialog : BottomSheetDialogFragment() {
     }
 
     fun setDefaultDate(date: Calendar) = apply {
-        val persianDate=PersianCalendar(GregorianCalendar(date))
+        val persianDate = PersianCalendar(GregorianCalendar(date))
         setDefaultDate(
             persianDate.year,
             persianDate.month,
@@ -96,7 +96,7 @@ class PersianDatePickerDialog : BottomSheetDialogFragment() {
     }
 
     fun setTypeFace(typeface: Typeface) = apply {
-        PersianDatePickerDialog.typeFace = typeface
+        PersianDatePicker.typeFace = typeface
     }
 
     private fun initializeViews() {
@@ -152,9 +152,4 @@ class PersianDatePickerDialog : BottomSheetDialogFragment() {
             )
         )
     }
-
-    companion object {
-        var typeFace: Typeface? = null
-    }
-
 }
